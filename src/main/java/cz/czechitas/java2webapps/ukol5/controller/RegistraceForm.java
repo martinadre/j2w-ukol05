@@ -2,7 +2,10 @@ package cz.czechitas.java2webapps.ukol5.controller;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 public class RegistraceForm {
@@ -10,8 +13,8 @@ public class RegistraceForm {
     private String jmeno;
     @NotBlank
     private String prijmeni;
-    @NotBlank
-    private String datumNarozeni;
+    @NotNull
+    private LocalDate datumNarozeni;
     @NotBlank
     private String pohlavi;
     @NotBlank
@@ -22,7 +25,7 @@ public class RegistraceForm {
 
     public RegistraceForm() {};
 
-    public RegistraceForm(String jmeno, String prijmeni, String datumNarozeni, String pohlavi, String turnus, String email, String telefon) {
+    public RegistraceForm(String jmeno, String prijmeni, LocalDate datumNarozeni, String pohlavi, String turnus, String email, String telefon) {
         this.jmeno = jmeno;
         this.prijmeni = prijmeni;
         this.datumNarozeni = datumNarozeni;
@@ -48,11 +51,11 @@ public class RegistraceForm {
         this.prijmeni = prijmeni;
     }
 
-    public String getDatumNarozeni() {
+    public LocalDate getDatumNarozeni() {
         return datumNarozeni;
     }
 
-    public void setDatumNarozeni(String datumNarozeni) {
+    public void setDatumNarozeni(LocalDate datumNarozeni) {
         this.datumNarozeni = datumNarozeni;
     }
 
@@ -86,5 +89,10 @@ public class RegistraceForm {
 
     public void setTelefon(String telefon) {
         this.telefon = telefon;
+    }
+
+    public int getVek() {
+        Period period = datumNarozeni.until(LocalDate.now());
+        return period.getYears();
     }
 }
